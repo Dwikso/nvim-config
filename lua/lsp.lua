@@ -7,7 +7,6 @@ function lsp.init()
     "cssls",
     "docker_compose_language_service",
     "dockerls",
-    -- "eslint",
     "html",
     "jsonls",
     "lua_ls",

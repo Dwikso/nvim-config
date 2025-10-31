@@ -1,6 +1,10 @@
 {
   "plugins": {
     "FTerm.nvim": [],
+    "barbecue.nvim": {
+      "rev": "3e31404",
+      "src": "https://github.com/utilyre/barbecue.nvim"
+    },
     "blink.cmp": {
       "version": ">=0.0.0"
     },
@@ -39,6 +43,10 @@
       "src": "https://github.com/catppuccin/nvim"
     },
     "nvim-lspconfig": [],
+    "nvim-navic": {
+      "rev": "099b4c8",
+      "src": "https://github.com/SmiteshP/nvim-navic"
+    },
     "nvim-notify": [],
     "nvim-spectre": [],
     "nvim-treesitter": {

@@ -21,23 +21,23 @@ end
 function plugins.init()
   plugins.add({
     -- Global dependencies
-    "muniftanjim/nui.nvim",  -- UI library
-    "folke/noice.nvim",      -- UI library as well
-    "rcarriga/nvim-notify",  -- Notifications
-    "nvim-lua/plenary.nvim", -- Utilities
-    "nvimdev/lspsaga.nvim",
+    "muniftanjim/nui.nvim",                              -- UI library
+    "folke/noice.nvim",                                  -- UI library as well
+    "rcarriga/nvim-notify",                              -- Notifications
+    "nvim-lua/plenary.nvim",                             -- Utilities
     "2nthony/vitesse.nvim",
-    "rose-pine/neovim",                                                -- Theme
-    "catppuccin/nvim",                                                 -- Theme
+    "rose-pine/neovim",                                  -- Theme
+    "catppuccin/nvim",                                   -- Theme
     "tjdevries/colorbuddy.nvim",
-    "nvim-tree/nvim-web-devicons",                                     -- Icons
-    "nvim-neo-tree/neo-tree.nvim",                                     -- File explorer
-    { src = "nvim-mini/mini.pick", version = "stable" },               -- File picker plugin
-    "stevearc/conform.nvim",                                           -- Format plugin
-    "numToStr/FTerm.nvim",                                             -- Terminal plugin
-    "lewis6991/gitsigns.nvim",                                         -- Git signs plugin
-    "kdheepak/lazygit.nvim",                                           -- LazyGit plugin
-
+    "nvim-tree/nvim-web-devicons",                       -- Icons
+    "nvim-neo-tree/neo-tree.nvim",                       -- File explorer
+    { src = "nvim-mini/mini.pick", version = "stable" }, -- File picker plugin
+    "stevearc/conform.nvim",                             -- Format plugin
+    "numToStr/FTerm.nvim",                               -- Terminal plugin
+    "lewis6991/gitsigns.nvim",                           -- Git signs plugin
+    "kdheepak/lazygit.nvim",                             -- LazyGit plugin
+    "utilyre/barbecue.nvim",
+    "SmiteshP/nvim-navic",
     "supermaven-inc/supermaven-nvim",                                  -- AI Completion plugin
     "neovim/nvim-lspconfig",                                           -- LSP base configurations
     "williamboman/mason.nvim",                                         -- LSP / Tools Installer
@@ -89,6 +89,125 @@ function plugins.configure()
     },
   })
 
+  --#region Mason
+  local mason = require("mason")
+  mason.setup({
+    opts = {
+      ensure_installed = {
+        "stylua",
+        "prettier",
+        "eslint_d",
+        "clang_format",
+        "autopep8",
+        "biome",
+        "svelte",
+      }
+    },
+  })
+
+
+  --#region barbecue
+  local barbecue = require("barbecue")
+  barbecue.setup({
+    show_dirname = true,
+    show_basename = true,
+    show_modified = true,
+
+    lead_custom_section = function()
+      return { { "📂", "BarbecueDirIcon" } }
+    end,
+
+    symbols = {
+      ellipsis = "…",
+      separator = "▶",
+    },
+
+    theme = {
+      normal = { fg = "#FFFFFF", bg = "NONE" },
+      ellipsis = { fg = "#777777", bg = "NONE" },
+      separator = { fg = "#FF6B6B", bg = "NONE" },
+      modified = { fg = "#CB7676", bg = "NONE" },
+      dirname = { fg = "#FFFFFF", bg = "NONE" },
+      basename = { fg = "#FFFFFF", bold = true, bg = "NONE" },
+      context = { fg = "#FFFFFF", bg = "NONE" },
+      context_file = { fg = "#6394BF", bg = "NONE" },
+      context_module = { fg = "#6394BF", bg = "NONE" },
+      context_namespace = { fg = "#6394BF", bg = "NONE" },
+      context_package = { fg = "#6394BF", bg = "NONE" },
+      context_class = { fg = "#D973A0", bg = "NONE" },
+      context_method = { fg = "#4D935E", bg = "NONE" },
+      context_property = { fg = "#5EAAB5", bg = "NONE" },
+      context_field = { fg = "#5EAAB5", bg = "NONE" },
+      context_constructor = { fg = "#D973A0", bg = "NONE" },
+      context_enum = { fg = "#E6CC77", bg = "NONE" },
+      context_interface = { fg = "#D973A0", bg = "NONE" },
+      context_function = { fg = "#4D935E", bg = "NONE" },
+      context_variable = { fg = "#6394BF", bg = "NONE" },
+      context_constant = { fg = "#CB7676", bg = "NONE" },
+      context_string = { fg = "#4D935E", bg = "NONE" },
+      context_number = { fg = "#CB7676", bg = "NONE" },
+      context_boolean = { fg = "#CB7676", bg = "NONE" },
+      context_array = { fg = "#6394BF", bg = "NONE" },
+      context_object = { fg = "#6394BF", bg = "NONE" },
+      context_key = { fg = "#5EAAB5", bg = "NONE" },
+      context_null = { fg = "#777777", bg = "NONE" },
+      context_enum_member = { fg = "#E6CC77", bg = "NONE" },
+      context_struct = { fg = "#D973A0", bg = "NONE" },
+      context_event = { fg = "#CB7676", bg = "NONE" },
+      context_operator = { fg = "#777777", bg = "NONE" },
+      context_type_parameter = { fg = "#6394BF", bg = "NONE" },
+    },
+
+    kinds = {
+      File = "",
+      Directory = "",
+      Module = "",
+      Namespace = "",
+      Package = "",
+      Class = "",
+      Method = "",
+      Property = "",
+      Field = "",
+      Constructor = "",
+      Enum = "",
+      Interface = "",
+      Function = "",
+      Variable = "",
+      Constant = "",
+      String = "",
+      Number = "",
+      Boolean = "",
+      Array = "",
+      Object = "",
+      Key = "",
+      Null = "",
+      EnumMember = "",
+      Struct = "",
+      Event = "",
+      Operator = "",
+      TypeParameter = "",
+    },
+  })
+
+  -- Forcer le fond transparent de la winbar
+  vim.defer_fn(function()
+    vim.api.nvim_set_hl(0, 'Winbar', { bg = 'NONE' })
+    vim.api.nvim_set_hl(0, 'WinbarNC', { bg = 'NONE' })
+    vim.api.nvim_set_hl(0, 'BarbecueDirIcon', { fg = '#E6CC77', bg = 'NONE' })
+  end, 200)
+
+  -- Réappliquer après changement de colorscheme
+  vim.api.nvim_create_autocmd('ColorScheme', {
+    pattern = '*',
+    callback = function()
+      vim.schedule(function()
+        vim.api.nvim_set_hl(0, 'Winbar', { bg = 'NONE' })
+        vim.api.nvim_set_hl(0, 'WinbarNC', { bg = 'NONE' })
+      end)
+    end
+  })
+  --#endregion
+
   --#region Neotree
   local neotree = require("neo-tree")
   neotree.setup({
@@ -111,41 +230,7 @@ function plugins.configure()
   })
   --#endregion
 
-  --#region LSP Saga
-  local saga = require("lspsaga")
-  saga.setup({
-    symbol_in_winbar = {
-      enable = true,
-      separator = ' › ',
-      hide_keyword = false,
-      show_file = true,
-      folder_level = 1,
-      color_mode = true, -- CHANGEZ CECI À false
-    }
-  })
 
-  vim.defer_fn(function()
-    vim.api.nvim_set_hl(0, 'SagaWinbarSep', { fg = '#777777', bg = 'NONE' })
-    vim.api.nvim_set_hl(0, 'SagaWinbarFileName', { fg = '#FFFFFF', bg = 'NONE', bold = true })
-    vim.api.nvim_set_hl(0, 'SagaWinbarFileIcon', { fg = '#6394BF', bg = 'NONE' })
-    vim.api.nvim_set_hl(0, 'SagaWinbarFolder', { fg = '#777777', bg = 'NONE' })
-    vim.api.nvim_set_hl(0, 'SagaWinbarFolderIcon', { fg = '#777777', bg = 'NONE' })
-    vim.api.nvim_set_hl(0, 'Winbar', { bg = 'NONE' })
-    vim.api.nvim_set_hl(0, 'WinbarNC', { bg = 'NONE' })
-  end, 200)
-
-  -- Aussi réappliquer à chaque changement de colorscheme
-  vim.api.nvim_create_autocmd('ColorScheme', {
-    pattern = '*',
-    callback = function()
-      vim.schedule(function()
-        vim.api.nvim_set_hl(0, 'Winbar', { bg = 'NONE' })
-        vim.api.nvim_set_hl(0, 'WinbarNC', { bg = 'NONE' })
-      end)
-    end
-  })
-
-  --#endregion
 
   --#region Lualine
   local lualine = require("lualine")
