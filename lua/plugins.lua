@@ -21,12 +21,14 @@ end
 function plugins.init()
   plugins.add({
     -- Global dependencies
-    "muniftanjim/nui.nvim",                                            -- UI library
-    "folke/noice.nvim",                                                -- UI library as well
-    "rcarriga/nvim-notify",                                            -- Notifications
-    "nvim-lua/plenary.nvim",                                           -- Utilities
-
-    "2nthony/vitesse.nvim",                                            -- Theme
+    "muniftanjim/nui.nvim",  -- UI library
+    "folke/noice.nvim",      -- UI library as well
+    "rcarriga/nvim-notify",  -- Notifications
+    "nvim-lua/plenary.nvim", -- Utilities
+    "nvimdev/lspsaga.nvim",
+    "2nthony/vitesse.nvim",
+    "rose-pine/neovim",                                                -- Theme
+    "catppuccin/nvim",                                                 -- Theme
     "tjdevries/colorbuddy.nvim",
     "nvim-tree/nvim-web-devicons",                                     -- Icons
     "nvim-neo-tree/neo-tree.nvim",                                     -- File explorer
@@ -58,6 +60,9 @@ end
 
 function plugins.configure()
   vim.cmd("colorscheme vitesse")
+
+  vim.cmd("colorscheme vitesse")
+
 
   require("which-key").setup()
   require("mini.pairs").setup()
@@ -94,8 +99,52 @@ function plugins.configure()
         enabled = true,
         leave_dirs_open = false,
       },
+      default_component_configs = {
+        indent = {
+          with_expanders = true,
+          expander_collapsed = "+",
+          expander_expanded = "-",
+          expander_highlight = "NeoTreeExpander",
+        }
+      }
     },
   })
+  --#endregion
+
+  --#region LSP Saga
+  local saga = require("lspsaga")
+  saga.setup({
+    symbol_in_winbar = {
+      enable = true,
+      separator = ' › ',
+      hide_keyword = false,
+      show_file = true,
+      folder_level = 1,
+      color_mode = true, -- CHANGEZ CECI À false
+    }
+  })
+
+  vim.defer_fn(function()
+    vim.api.nvim_set_hl(0, 'SagaWinbarSep', { fg = '#777777', bg = 'NONE' })
+    vim.api.nvim_set_hl(0, 'SagaWinbarFileName', { fg = '#FFFFFF', bg = 'NONE', bold = true })
+    vim.api.nvim_set_hl(0, 'SagaWinbarFileIcon', { fg = '#6394BF', bg = 'NONE' })
+    vim.api.nvim_set_hl(0, 'SagaWinbarFolder', { fg = '#777777', bg = 'NONE' })
+    vim.api.nvim_set_hl(0, 'SagaWinbarFolderIcon', { fg = '#777777', bg = 'NONE' })
+    vim.api.nvim_set_hl(0, 'Winbar', { bg = 'NONE' })
+    vim.api.nvim_set_hl(0, 'WinbarNC', { bg = 'NONE' })
+  end, 200)
+
+  -- Aussi réappliquer à chaque changement de colorscheme
+  vim.api.nvim_create_autocmd('ColorScheme', {
+    pattern = '*',
+    callback = function()
+      vim.schedule(function()
+        vim.api.nvim_set_hl(0, 'Winbar', { bg = 'NONE' })
+        vim.api.nvim_set_hl(0, 'WinbarNC', { bg = 'NONE' })
+      end)
+    end
+  })
+
   --#endregion
 
   --#region Lualine
@@ -143,7 +192,8 @@ function plugins.configure()
     "swift",
     "zig",
     "clangd",
-    "rust"
+    "rust",
+    "c"
   })
 
 
@@ -178,6 +228,7 @@ function plugins.configure()
     timeout = 3000,
     render = "compact",
     top_down = false,
+    background_colour = "#000000",
   })
   stay_centered.setup({
     enabled = false

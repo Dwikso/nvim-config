@@ -1,0 +1,61 @@
+{
+  "plugins": {
+    "FTerm.nvim": [],
+    "blink.cmp": {
+      "version": ">=0.0.0"
+    },
+    "colorbuddy.nvim": [],
+    "conform.nvim": [],
+    "gitsigns.nvim": [],
+    "lazygit.nvim": [],
+    "lspsaga.nvim": {
+      "rev": "8efe00d",
+      "src": "https://github.com/nvimdev/lspsaga.nvim"
+    },
+    "lualine.nvim": [],
+    "mason-lspconfig.nvim": [],
+    "mason.nvim": [],
+    "mini.comment": {
+      "version": "'main'"
+    },
+    "mini.pairs": {
+      "version": "'main'"
+    },
+    "mini.pick": {
+      "version": "'stable'"
+    },
+    "mini.surround": {
+      "version": "'main'"
+    },
+    "neo-tree.nvim": [],
+    "neovim": {
+      "rev": "72a04c4",
+      "src": "https://github.com/rose-pine/neovim"
+    },
+    "noice.nvim": [],
+    "nui.nvim": [],
+    "nvim": {
+      "rev": "af58927",
+      "src": "https://github.com/catppuccin/nvim"
+    },
+    "nvim-lspconfig": [],
+    "nvim-notify": [],
+    "nvim-spectre": [],
+    "nvim-treesitter": {
+      "version": "'main'"
+    },
+    "nvim-ts-autotag": [],
+    "nvim-ts-context-commentstring": [],
+    "nvim-web-devicons": [],
+    "nyoom.nvim": {
+      "rev": "f808500",
+      "src": "https://github.com/nyoom-engineering/nyoom.nvim"
+    },
+    "plenary.nvim": [],
+    "stay-centered.nvim": [],
+    "supermaven-nvim": [],
+    "vim-sleuth": [],
+    "vitesse.nvim": [],
+    "which-key.nvim": []
+  }
+}
