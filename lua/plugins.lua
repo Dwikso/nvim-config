@@ -162,7 +162,7 @@ function plugins.configure()
   lualine.setup({
     options = {
       icons_enabled = true,
-      theme = "lushwal",
+      theme = "vitesse",
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
       disabled_filetypes = { "lazygit" },
@@ -203,7 +203,8 @@ function plugins.configure()
     "zig",
     "clangd",
     "rust",
-    "c"
+    "c",
+    "astro"
   })
 
 
@@ -325,6 +326,7 @@ function plugins.configure()
       typescript = { "biome_c", "eslint_c", "prettier", stop_after_first = true },
       typescriptreact = { "biome_c", "eslint_c", "prettier", stop_after_first = true },
       mdx = { "prettier" },
+      vue = { "prettierd" },
       markdown = { "prettier" },
       json = { "biome_c", "prettier", stop_after_first = true },
       astro = { "prettier" },

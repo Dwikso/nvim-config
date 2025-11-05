@@ -14,13 +14,14 @@ function lsp.init()
     "svelte",
     "yamlls",
     "vtsls",
+    "vue_ls",
   }
 
   require("mason").setup()
   require("mason-lspconfig").setup({
-    automatic_enable = false,
     ensure_installed = servers,
   })
+
   require("blink.cmp").setup({
     keymap = {
       preset = "enter",
@@ -31,29 +32,49 @@ function lsp.init()
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 500,
-      }
+      },
     },
     sources = {
-      default = { 'lsp' }
-    }
+      default = { 'lsp', 'path', 'snippets', 'buffer' }
+    },
+    signature = { enabled = true },
   })
 
   vim.diagnostic.config({
-    float = {
-      source = true,
-      border = 'rounded'
-    }
+    float = { source = true, border = 'rounded' },
   })
 
-  -- Config override
+  -- Configuration vtsls
   vim.lsp.config("vtsls", {
     on_attach = function(client, _)
       client.server_capabilities.documentFormattingProvider = false
-    end
+    end,
   })
 
-  -- Enable everything
+  -- Configuration volar (Vue)
+  vim.lsp.config("volar", {
+    on_attach = function(client, _)
+      client.server_capabilities.documentFormattingProvider = false
+    end,
+  })
+
+  -- Configuration astro
+  vim.lsp.config("astro", {
+    init_options = {
+      typescript = {
+        tsdk = vim.fn.stdpath("data") .. "/mason/packages/typescript-language-server/node_modules/typescript/lib",
+      },
+    },
+    on_attach = function(client, _)
+      client.server_capabilities.documentFormattingProvider = false
+    end,
+  })
+
+  -- Démarre les serveurs
   vim.lsp.enable(servers)
+
+  -- Mapping pour hover
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = 'Hover Documentation' })
 end
 
 return lsp
