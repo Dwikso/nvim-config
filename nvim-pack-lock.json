@@ -17,6 +17,11 @@
       "src": "https://github.com/nvimdev/lspsaga.nvim"
     },
     "lualine.nvim": [],
+    "lush.nvim": [],
+    "lushwal": {
+      "rev": "2823942",
+      "src": "https://github.com/oncomouse/lushwal"
+    },
     "mason-lspconfig.nvim": [],
     "mason.nvim": [],
     "mini.comment": {
@@ -60,8 +65,17 @@
       "src": "https://github.com/nyoom-engineering/nyoom.nvim"
     },
     "plenary.nvim": [],
+    "pywal.nvim": {
+      "rev": "d11b673",
+      "src": "https://github.com/AlphaTechnolog/pywal.nvim"
+    },
+    "shipwright.nvim": [],
     "stay-centered.nvim": [],
     "supermaven-nvim": [],
+    "trouble.nvim": {
+      "rev": "bd67efe",
+      "src": "https://github.com/folke/trouble.nvim"
+    },
     "vim-sleuth": [],
     "vitesse.nvim": [],
     "which-key.nvim": []

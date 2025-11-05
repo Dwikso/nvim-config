@@ -15,7 +15,7 @@ function opts.init()
   vim.opt.splitbelow = true -- Cursor go on the left window when split
   vim.opt.splitright = true -- Cursor go on the right windows when split
   vim.opt.confirm = true -- Confirm before closing an unsaved buffer
-  vim.opt.cursorline = true -- Highlight current line
+  vim.opt.cursorline = false -- Highlight current line
   vim.opt.expandtab = true -- Use spaces instead of tabs
   vim.opt.smartindent = true -- Insert indents automatically
   vim.opt.mousescroll = "ver:3,hor:0" -- Disable horizontal mouse scrolling
@@ -27,6 +27,10 @@ function opts.init()
   vim.opt.clipboard = "unnamedplus" -- Copy to system clipboard
   vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
   vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+  vim.diagnostic.config({
+    virtual_text = true,
+    signs = true
+  })
 end
 
 return opts
