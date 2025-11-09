@@ -1,1 +1,0 @@
-require("oskwid").load()
